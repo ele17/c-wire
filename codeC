@@ -2,7 +2,7 @@
 #include <stdlib>
 #include <string.h>
 
-typedef struct {
+typedef struct Arbre {
 int elmt;
 struct arbre *fg;
 struct arbre *fd;
@@ -53,6 +53,8 @@ return recherche(a->fg,e);
 }
 return a;
 }
+
+
 
 
 
