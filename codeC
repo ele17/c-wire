@@ -1,1 +1,59 @@
+#include <stdio.h>
+#include <stdlib>
+
+typedef struct {
+int elmt;
+struct arbre *fg;
+struct arbre *fd;
+int equilibre=0;
+}Arbre;
+
+Arbre *creationArbre (int donne){
+Arbre *nouveau= malloc (size(of(chainon));
+if (nouveau==NULL){
+exit (1);
+}
+nouveau->elmt=donne;
+nouveau->fg=NULL;
+nouveau->fd=NULL;
+return nouveau;
+}
+
+int equilibrerAVL(Arbre *a){
+if(a->equilibre> 1){
+if(a->fd->equilibre>0){
+return RotationGauche(a);
+else{
+DoubleRotationGauche(a);
+}
+}
+if(a->equilibre>-1){
+if(a->fg->equilibre >0){
+return RotationDroite(a);
+else{
+return DoubleRotationDroite(a);
+}
+} 
+return a;
+}
+
+int recherche (Arbre *a, int e){
+if (a==NULL){
+return 0;
+}
+if (e=a->elmt){
+return 1;
+}
+else if(e >a->elmt){
+return recherche(a->fd,e);
+}
+else (e<a->elmt){
+return recherche(a->fg,e);
+}
+return a;
+}
+
+
+
+
 
