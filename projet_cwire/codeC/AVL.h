@@ -6,11 +6,11 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef struct AVLNode{
+typedef struct AVLNoeud{
 int id;
-int capacity;
-int consumption;
-int height;
-struct AVLNode *fg;
-struct AVLNode *fd;
-}AVLNode;
+int capacité;
+int consommation;
+int hauteur;
+struct AVLNoeud *fg;
+struct AVLNoeud *fd;
+}AVLNoeud;
