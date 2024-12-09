@@ -50,7 +50,7 @@ void freeAVL(AVLNode *racine) {
 void infixe (Noeud *racine) {
     if (racine != NULL) {
         infixe(racine->gauche);
-        printf("Station ID: %s, Consommation: %.2f\n", racine->stationId); 
+        printf("Station ID: %s, Consommation: %.2f\n", racine->stationId, racine->consommation); 
         infixe (racine->droit);
     }
 }
