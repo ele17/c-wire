@@ -1,59 +1,46 @@
 #include <stdio.h>
-#include <stdlib>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
-typedef struct Road{
-int elmt;
+
+
+typedef struct StateAVL {
 double d;
 double d_min;
-double 
-struct arbre *fg;
-struct arbre *fd;
-int equilibre=0;
-}Arbre;
+double d_max;
+double d_max_min;
+double d_moy;
+int h;
+int nb_state;
+struct StateAVL *fg;
+struct StateAVL *fd;
+} StateAVL;
 
-Arbre *creationArbre (int donne){
-Arbre *nouveau= malloc (size(of(chainon));
-if (nouveau==NULL){
-exit (1);
-}
-nouveau->elmt=donne;
-nouveau->fg=NULL;
-nouveau->fd=NULL;
-return nouveau;
-}
+typedef struct Road {
+ 	StateAVL* node;
+ 	struct Road* next;
+    struct Road *end;
+} Road;
 
-int equilibrerAVL(Arbre *a){
-if(a->equilibre> 1){
-if(a->fd->equilibre>0){
-return RotationGauche(a);
-else{
-DoubleRotationGauche(a);
-}
-}
-if(a->equilibre>-1){
-if(a->fg->equilibre >0){
-return RotationDroite(a);
-else{
-return DoubleRotationDroite(a);
-}
-} 
-return a;
-}
+int Max(int a, int b);
+int height(StateAVL *node);
+int Balanced(StateAVL* root);
 
-int recherche (Arbre *a, int e){
-if (a==NULL){
-return 0;
-}
-if (e=a->e){
-return 1;
-}
-else if(e >a->e){
-return recherche(a->fd,e);
-}
-else (e<a->e){
-return recherche(a->fg,e);
-}
-return a;
-}
+StateAVL* rotateRight(StateAVL* b);
+StateAVL *rotateLeft(StateAVL *a);
+StateAVL* createNode(int Route_id, double d);
+Road* changeRoad(Road* root, StateAVL* newState);
+Road *insertPliste(Road *pliste, StateAVL *newState);
+StateAVL *insertAVL(StateAVL *root, StateAVL *newState);
+StateAVL *searchSmoller(StateAVL *root);
+StateAVL *heightBalanced(StateAVL *root);
+StateAVL *suppSmoler(StateAVL *root);
+StateAVL *insertAVLFromList(Road *pliste, StateAVL *a);
+
+
+void SortedData(struct StateAVL* newNode, struct StateAVL* sortedData[ ], int* Index);
+void freeSortedData(struct StateAVL* sortedData[ ], int Index);
+void CreateCSV(struct StateAVL* root);
+
+
