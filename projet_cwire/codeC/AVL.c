@@ -1,20 +1,20 @@
 #include "avl.h"
 
-AVLNode* createNode(int id, int capacity) {
-    AVLNode *node = malloc(sizeof(AVLNode));
-    node->id = id;
-    node->capacity = capacity;
-    node->consumption = 0;
-    node->height = 1;
-    node->left = node->right = NULL;
-    return node;
+AVLNoeud* creerNoeud(int elmt, int capacité) {
+    AVLNoeud *noeud = malloc(sizeof(AVLNoeud));
+    noeud->id = id;
+    noeud->capacité = capacité;
+    noeud->consommation = 0;
+    noeud->hauteur = 1;
+    noeud->gauche = noeud->right = NULL;
+    return nozud;
 }
 
-void freeAVL(AVLNode *root) {
-    if (root) {
-        freeAVL(root->left);
-        freeAVL(root->right);
-        free(root);
+void freeAVL(AVLNode *racine) {
+    if (racine) {
+        freeAVL(racine->gauche);
+        freeAVL(racine->droit);
+        free(racine);
     }
 }
 
