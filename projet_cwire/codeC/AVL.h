@@ -11,6 +11,7 @@ int id;
 int capacité;
 int consommation;
 int hauteur;
+int equilibre=0;
 struct AVLNoeud *fg;
 struct AVLNoeud *fd;
 }AVLNoeud;
