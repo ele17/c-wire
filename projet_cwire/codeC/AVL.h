@@ -26,6 +26,20 @@ AVLNoeud* creerNoeud(int elmt, int capacité) {
     return noeud;
 }
 
+int recherche(int elmt, int capacité){
+if(capacité==NULL){
+free (1);
+}
+if (capacité->elmt == capacité) {
+        return a; 
+    }
+    if (capacité < capacité->elmt {
+        return recherche(capacité->fg, e);
+    } else {
+        return recherche(capacité->fd, e); 
+    }
+}
+
 void freeAVL(AVLNode *racine) {
     if (racine) {
         freeAVL(racine->gauche);
