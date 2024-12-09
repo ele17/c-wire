@@ -7,7 +7,7 @@ AVLNoeud* creerNoeud(int elmt, int capacité) {
     noeud->consommation = 0;
     noeud->hauteur = 1;
     noeud->gauche = noeud->right = NULL;
-    return nozud;
+    return noeud;
 }
 
 void freeAVL(AVLNode *racine) {
