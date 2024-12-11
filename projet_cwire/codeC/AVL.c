@@ -1,18 +1,13 @@
-#include "avl.h"
+typedef struct AVLNoeud{
+    int id;
+    int capacite;
+    int consommation;
+    int hauteur;
+    struct AVLNoeud *gauche;
+    struct AVLNoeud *droit;
+} AVLNoeud;
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s <fichier_csv>\n", argv[0]);
-        return 1;
-    }
-
-    Noeud *racine = processCSV(argv[1]);
-    if (racine == NULL) {
-        return 1;
-    }
-
-    printf("Données traitées:\n");
-    infixe(racine);
-  
-    return 0;
-}
+AVLNoeud* creeNoeud(int id, int capacite);
+AVLNoeud* inserer(AVLNoeud *racine, int id, int capacite, int consommation);
+void inOrderTraversal(AVLNode *racine, FILE *outputFile);
+void freeAVL(AVLNoeud *racine);
