@@ -6,15 +6,25 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef struct AVLNoeud{
+typedef struct Station{
 int id;
-int capacité;
-int consommation;
+char type [10];
+double capacité;
+double charge;
+}Station;
+
+typedef struct StationAVL {
+Station *donnee;
+struct StationAVL *droit;
+struct StationAVL *gauche;
 int hauteur;
 int equilibre=0;
-struct AVLNoeud *fg;
-struct AVLNoeud *fd;
-}AVLNoeud;
+}StationAVL;
+
+typedef struct StationListe{
+Station *station;
+struct StationListe *suivant;
+}StationListe;
 
 AVLNoeud* creerNoeud(int elmt, int capacité) {
     AVLNoeud *noeud = malloc(sizeof(AVLNoeud));
@@ -54,4 +64,25 @@ void infixe (Noeud *racine) {
         infixe (racine->droit);
     }
 }
+
+int equilibreArbre (Arbre *a, int elmt){
+}
+int rotationDroite (Arbre *a, int elmt){
+}
+int rotationGauche (Arbre *a, int elmt){
+}
+
+
+StationAVL* creerNoeud (Station *data);
+StationAVL* insererAVL(StationAVL *racine, Station *data);
+StationAVL* equilibreArbre(StationAVL *noeud);
+StationAVL* rotationGauche(StationAVL *noeud);
+StationAVL* rotationDroit(StationAVL *noeud);
+void freeAVL(StationAVL *racine);
+
+StationListe* insererStationListe(StationList *liste, Station *station);
+void freeStationListz(StationListe *liste);
+
+void exportToCSV(StationAVL *racine, const char *filename);
+void analyseStations(StationAVL *racine);
 
