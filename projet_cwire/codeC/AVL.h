@@ -36,6 +36,37 @@ AVLNoeud* creerNoeud(int elmt, int capacité) {
     return noeud;
 }
 
+AVL* insertionAVL(AVL* a, int e, int *h)
+{
+    if (a == NULL)
+    {           
+        *h = 1; 
+        return creerAVL(e);
+    }
+    else if (e < a->value)
+    { /
+        a->fg = insertionAVL(a->fg, e, h);
+        *h = -*h; 
+    }
+    else if (e > a->value)
+    { 
+        a->fd = insertionAVL(a->fd, e, h);
+    }
+    else
+    { // Élément déjà présent
+        *h = 0;
+        return a;
+    }
+
+    if (*h != 0)
+    {
+        a->eq += *h;
+        a = equilibrerAVL(a);
+        *h = (a->eq == 0) ? 0 : 1; // Mise à jour de la hauteur
+    }
+    return a;
+}
+
 int recherche(int elmt, int capacité){
 if(capacité==NULL){
 free (1);
@@ -65,11 +96,56 @@ void infixe (Noeud *racine) {
     }
 }
 
-int equilibreArbre (Arbre *a, int elmt){
+AVL* equilibrerAVL(AVL* a)
+{
+    if (a->eq >= 2) {
+        if (a->fd->eq >= 0)
+        {
+            return rotationGauche(a); 
+        }
+        else
+        {
+            return doubleRotationGauche(a);
+    }
+    else if (a->eq <= -2)
+    { 
+        if (a->fg->eq <= 0)
+        {
+            return rotationDroite(a); 
+        }
+        else
+        {
+            return doubleRotationDroite(a); 
+        }
+    }
+    return a; 
 }
-int rotationDroite (Arbre *a, int elmt){
+
+    AVL* rotationGauche(AVL* a) {
+    AVL* pivot = a->fd; 
+    int eq_a = a->eq, eq_p = pivot->eq;
+
+    a->fd = pivot->fg; 
+    pivot->fg = a;    
+        
+    a->eq = eq_a - max(eq_p, 0) - 1;
+    pivot->eq = min3(eq_a - 2, eq_a + eq_p - 2, eq_p - 1);
+
+    return pivot; 
 }
-int rotationGauche (Arbre *a, int elmt){
+
+AVL* rotationDroite(AVL* a)
+{
+    AVL* pivot = a->fg; 
+    int eq_a = a->eq, eq_p = pivot->eq;
+
+    a->fg = pivot->fd; 
+    pivot->fd = a;    
+
+    a->eq = eq_a - min(eq_p, 0) + 1;
+    pivot->eq = max3(eq_a + 2, eq_a + eq_p + 2, eq_p + 1);
+
+    return pivot; 
 }
 
 
