@@ -1,4 +1,3 @@
-#define AVL_H
 #define AVL_H 1000
 
 #include <stdio.h>
