@@ -1,3 +1,4 @@
+#include <stdio.h>
 typedef struct AVLNoeud{
     int id;
     int capacite;
