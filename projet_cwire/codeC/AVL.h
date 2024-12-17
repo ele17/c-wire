@@ -6,7 +6,7 @@
 typedef struct Station{
 int id;
 char type [10];
-double capacité;
+double capacite;
 double charge;
 }Station;
 
