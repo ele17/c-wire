@@ -80,6 +80,7 @@ StationAVL *rotationDroite(StationAVL *noeud) {
     return pivot;
 }
 
+// liberation de la memoire
 void freeAVL(StationAVL *racine) {
     if (racine) {
         freeAVL(racine->gauche);
