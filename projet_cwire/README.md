@@ -15,4 +15,4 @@ combinaisons interdites : hvb+all, hvb+indiv, hva+all, hva+indiv (car seules les
 
 Une fois les donnés d'entrée validés, le programme shell va réaliser un pré-tri, éliminant les lignes et les colones qui ne concernent pas nos filtres, programme qu'il stoquera dans le dossier temp
 On appelle ensuite le c afin de calculer la somme des consomations sur chaque station filtrée 
-Le
+
