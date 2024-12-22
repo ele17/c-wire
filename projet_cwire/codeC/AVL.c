@@ -99,6 +99,7 @@ void parcoursInfixe(StationAVL *racine) {
     }
 }
 
+// sert à exporter les données contenues dans un Arbre AVL dans un fichier CSV
 void exportToCSV(StationAVL *racine, const char *filename) {
     FILE *fichier = fopen(filename, "w");
     if (fichier==NULL) {
