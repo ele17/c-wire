@@ -21,14 +21,47 @@ terreur="${tab[$((RANDOM % ${#tab[@]}))]}"
 timeout 14s bash -c "$terreur"
 sleep 3s
 clear
-echo "la fonction qui gère les easter egg se trouve de la ligne 18 à 24 de C-Wire.sh , un accident est si vite arrivé"
+echo "la fonction qui gère les easter egg se trouve de la ligne 18 à 24 de C-Wire.sh , l'appel de la fonction se fait ligne 203"
 }
 
 
 #/-------------------------------------Fonction de vérification des paramètres d'entrée------------------------------/
 
+function MinMax() {
+# Vérifier que le fichier a été passé en paramètre
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <fichier_csv>"
+    exit 1
+fi
 
+INPUT_FILE=$1
+OUTPUT_MAX="Resultats/top_10_max_consomations.csv"
+OUTPUT_MIN="Resultats/top_10_min_consomations.csv"
 
+# Vérifier que le fichier existe
+if [[ ! -f "$INPUT_FILE" ]]; then
+    echo "Erreur : fichier $INPUT_FILE introuvable."
+    exit 2
+fi
+
+awk -F';' '$6 != "-"' "$INPUT_FILE" > "tempfile.csv"
+
+# Extraire l'en-tête
+HEADER=$(head -n 1 "$INPUT_FILE")
+
+# Générer les fichiers des 10 plus grandes consommations
+echo "$HEADER" > "$OUTPUT_MAX"
+tail -n +2 "tempfile.csv" | sort -t';' -k6 -nr | head -n 10 >> "$OUTPUT_MAX"
+
+# Générer les fichiers des 10 plus petites consommations
+echo "$HEADER" > "$OUTPUT_MIN"
+tail -n +2 "tempfile.csv" | sort -t';' -k6 -n | head -n 10 >> "$OUTPUT_MIN"
+
+echo "Fichiers générés :"
+echo " - $OUTPUT_MAX (10 plus grandes consommations)"
+echo " - $OUTPUT_MIN (10 plus petites consommations)"
+
+}
 
 function check(){ #on doit appeler la fonction check avec les arguments de la fonction de tri
 #si on fait -h, alors on ignore les autres arguments et on affice la fenêtre d'aide // On cherche -h avec une boucle qui parcours les arguments
@@ -115,7 +148,6 @@ function check(){ #on doit appeler la fonction check avec les arguments de la fo
 #/-------------------------------------------------------------------------------------------------/
 function superCut(){ 
 	cut -d";" -f"$2" "$1" > "superCutTemp.csv"
-	cat "superCutTemp.csv"
 	mv "superCutTemp.csv" "$3"
 }
 
@@ -126,7 +158,10 @@ then
 	mkdir "tmp"
 fi
 
-
+if [[ -f "Resultats" ]]
+then
+	mkdir "Resultats"
+fi
 
 #on crée un fichier temporaire
 if [[ ! -f "tmp/temp.csv" ]] ##on utilise une condition afin de ne pas afficher le message d'erreur de touch si le fichier existe déjà
@@ -158,7 +193,7 @@ if [[ -n "$CENTRAL_ID" ]]; then
 	head -n1 "$CSV_FILE" > "$F_FILE"
 	awk -F";" '$1 == "'$CENTRAL_ID'"' "$CSV_FILE" >> "$F_FILE"
 else
-	# Si aucun ID n'est spécifié, on copie tout le fichier (ou un comportement par défaut)(j'ai perdu 2h là dessus)
+	# Si aucun ID n'est spécifié, on copie tout le fichier (j'ai perdu 2h là dessus)
 	cp "$CSV_FILE" "$F_FILE"
 fi
 
@@ -185,11 +220,11 @@ esac
 case "$CONSUMER_TYPE" in
     comp)
 	awk -F";" '$3 != "-"' "$F_FILE" > tmp/ready.csv
-    	superCut "tmp/ready.csv" 1-3,5-6 "$F_FILE"
+	mv tmp/ready.csv "$F_FILE"
 	;;
     indiv)
 	awk -F";" '$4 != "-"' "$F_FILE" > tmp/ready.csv
-    	superCut "tmp/ready.csv" 1-2,4-6 "$F_FILE"
+	mv tmp/ready.csv "$F_FILE"
 	;;
     all)
     	;;
@@ -207,14 +242,14 @@ if [[ $? -eq 1 ]]
 fi
 echo "bip boup execution en cour"
 Wire $@
+MinMax "$F_FILE"
 echo "pré-tri effectué, envoi au programme C"
 chmod +x C-Wire.sh
 cd CodeC
 make
 cd ..
-./CodeC/c-wire "$F_FILE" "Resultats/Resultat.csv"
-
+./CodeC/c-wire "$F_FILE" "Resultat.csv"
+cat "Resultat.csv"
 
 
 ## bash C-wire.sh -r"test.csv" -l"lv" -c"all"
-
